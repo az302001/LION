@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int           @id @default(autoincrement())
+  name        String
+  email       String
+  password    String?
+  image       String?
+  Transaction Transaction[]
+  review      Reviews[]
+  productId   Products[]
+}
+
+model Products {
+  id          Int           @id @default(autoincrement())
+  name        String
+  descripcion String
+  genreId     Int
+  categoryId  Int
+  pryce       Float
+  discount    Int
+  modelsId    Int?
+  rating      Float
+  image       String
+  transaction Transaction[]
+  model       Models?        @relation(fields: [modelsId], references: [id], onDelete: Cascade)
+  sizes        Size []
+  genre       Genre         @relation(fields: [genreId], references: [id], onDelete: Cascade)
+  category    Category      @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  review      Reviews[]
+  user        User[]
+}
+
+model Genre {
+  id      Int        @id @default(autoincrement())
+  name    String
+  product Products[]
+}
+
+model Models {
+  id      Int        @id @default(autoincrement())
+  models  String
+  product Products[]
+}
+
+model Size {
+  id      Int        @id @default(autoincrement())
+  size    Int
+  product Products[]
+}
+
+model Favorite {
+  id        Int @id @default(autoincrement())
+  userId    Int
+  pruductId Int
+}
+
+model Category {
+  id      Int        @id @default(autoincrement())
+  name    String
+  product Products[]
+}
+
+model Reviews {
+  id        Int        @id @default(autoincrement())
+  userId    Int
+  productId Int
+  comentary String
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product   Products[]
+}
+
+model Transaction {
+  id       Int        @id @default(autoincrement())
+  userId   Int
+  approved Boolean    @default(false)
+  cost     Float
+  user     User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product  Products[]
+}
