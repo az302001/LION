@@ -33,8 +33,8 @@ model Products {
   rating      Float
   image       String
   transaction Transaction[]
-  model       Models?        @relation(fields: [modelsId], references: [id], onDelete: Cascade)
-  sizes        Size []
+  model       Models?       @relation(fields: [modelsId], references: [id], onDelete: Cascade)
+  sizes       Size[]
   genre       Genre         @relation(fields: [genreId], references: [id], onDelete: Cascade)
   category    Category      @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   review      Reviews[]
