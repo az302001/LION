@@ -18,6 +18,9 @@ export default [
         "name": "ASICS"
     },
     {
+        "name": "Saucony"
+    },
+    {
         "name": "Fila"
     },
     {
