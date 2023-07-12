@@ -7,13 +7,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const Index = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 20; // Número de productos por página
+  const pageSize = 20; 
 
   const products = useSelector((state) => state.products.products);
-  // const status = useSelector((state) => state.products.status);
   const sortOrder = useSelector((state) => state.products.sortOrder);
   const sortOrderPrice = useSelector((state) => state.products.sortOrderPrice);
-
 
   const dispatch = useDispatch();
 
@@ -32,17 +30,12 @@ const Index = () => {
   }, [dispatch]);
 
 
-  
-
-  // Obtener los productos correspondientes a la página actual
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
   const visibleProducts = products.slice(startIndex, endIndex);
 
-  // Calcular el número total de páginas
   const totalPages = Math.ceil(products.length / pageSize);
 
-  // Funciones para cambiar de página
   const goToPage = (page) => {
     setCurrentPage(page);
   };
@@ -78,7 +71,7 @@ const Index = () => {
         <button
           onClick={goToPreviousPage}
           disabled={currentPage === 1}
-          className='pagination-button mr-2 bg-blue-950 p-1 text-white font-serif rounded-[10px] hover:bg-red-500 cursor-pointer'
+          className='pagination-button mr-2 bg-blue-950 p-1 text-[12px] md:text-[15px]  text-white font-serif rounded-[10px] hover:bg-red-500 cursor-pointer'
         >
           Retroceder
         </button>
@@ -86,7 +79,7 @@ const Index = () => {
           <button
             key={index}
             className={`pagination-button ${currentPage === index + 1 ? 'bg-red-700 text-white' : 'border-2 border-blue-950'
-              } w-[2%] mr-2 rounded-[10px] hover:bg-red-700 hover:border-red-700 hover:text-white`}
+              } w-[10%] lg:w-[2%] md:w-[4%] mr-2 rounded-[10px] hover:bg-red-700 hover:border-red-700 hover:text-white`}
             onClick={() => goToPage(index + 1)}
           >
             {index + 1}
@@ -95,7 +88,7 @@ const Index = () => {
         <button
           onClick={goToNextPage}
           disabled={currentPage === totalPages}
-          className='pagination-button ml-2 bg-blue-950 p-1 text-white font-serif rounded-[10px] hover:bg-green-600 cursor-pointer '
+          className='pagination-button ml-2 text-[12px] md:text-[15px]  bg-blue-950 p-1 text-white font-serif rounded-[10px] hover:bg-green-600 cursor-pointer '
         >
           Avanzar
         </button>
